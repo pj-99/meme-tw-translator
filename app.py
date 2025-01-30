@@ -6,6 +6,7 @@ import streamlit as st
 from page_config import set_page_config
 from uploader_config import customized_uploader
 from image_translator import ImageTranslator, FontColorType
+from share_button import create_share_buttons
 
 translator = ImageTranslator()
 
@@ -89,15 +90,7 @@ def main():
 
     # Footer
     st.markdown("---")
-    st.markdown(
-        """
-        <div style='text-align: center; color: #666;'>
-        <p>💡分享此工具</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
+    create_share_buttons()
 
 if __name__ == "__main__":
     main()
