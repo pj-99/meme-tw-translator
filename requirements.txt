@@ -1,0 +1,9 @@
+--find-links https://download.pytorch.org/whl/torch_stable.html
+torch==2.3.1+cpu
+torchvision==0.18.1+cpu
+easyocr==1.7.2
+OpenCC==0.2
+opencc-python-reimplemented==0.1.7
+pillow==10.3.0
+opencv-python-headless==4.11.0.86
+streamlit==1.41.1

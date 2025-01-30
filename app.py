@@ -16,8 +16,8 @@ def main():
     set_page_config()
 
     # Header section
-    st.title("🔄圖片繁體化")
-    st.markdown("將圖片裡的簡體字自動轉換成繁體中文，上傳圖片即可轉換")
+    st.title("🔄圖片簡轉繁")
+    st.markdown("將圖片裡的簡體字自動轉換成繁體字，上傳圖片即可轉換")
 
     # Setup customized uploader
     customized_uploader()

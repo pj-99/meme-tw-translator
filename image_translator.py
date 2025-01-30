@@ -19,7 +19,13 @@ class FontColorType(Enum):
 class ImageTranslator:
     "Translate image to Traditional Chinese"
 
-    reader = easyocr.Reader(["ch_sim"])
+    reader = easyocr.Reader(
+        ["ch_sim"],
+        gpu=False,
+        quantize=False,
+        download_enabled=False,
+        model_storage_directory="./models",
+        )
 
     prob_threshold = 0.9
     "OCR probability threshold"
