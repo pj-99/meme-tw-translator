@@ -1,16 +1,20 @@
+"Translate image's Simple Chinese to Traditional Chinese"
 import re
 from enum import Enum
+import glob
 import numpy as np
 import easyocr
 import cv2
 from opencc import OpenCC
 from PIL import Image, ImageDraw, ImageFont
 
+
 class FontColorType(Enum):
     "Font color type for generated text"
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
     AUTO = None
+
 
 class ImageTranslator:
     "Translate image to Traditional Chinese"
@@ -33,12 +37,11 @@ class ImageTranslator:
     #  b'Medium', b'SemiBold', b'Bold', b'ExtraBold', b'Black' ]
     font_variation = "Bold"
 
-
     def __init__(self, cc_type="s2twp"):
         "s2twp: 簡體到繁體（臺灣正體標準）並轉換爲臺灣常用詞彙"
         self.cc = OpenCC(cc_type)
 
-    def translate_image(self, rgb_image, font_color_type = FontColorType.WHITE):
+    def translate_image(self, rgb_image, font_color_type=FontColorType.WHITE):
         "Translate the text in image to Traditional Chinese"
         preprocessed_img = self._preprocess(rgb_image)
 
@@ -74,10 +77,14 @@ class ImageTranslator:
             if font_color == FontColorType.AUTO.value:
                 # Cropped image
                 bbox = (top_left[0], top_left[1], bottom_right[0], bottom_right[1])
-                cropped_img = rgb_image[bbox[1]:bbox[3], bbox[0]:bbox[2]]
-                cropped_preprocessed= preprocessed_img[bbox[1]:bbox[3], bbox[0]:bbox[2]]
+                cropped_img = rgb_image[bbox[1] : bbox[3], bbox[0] : bbox[2]]
+                cropped_preprocessed = preprocessed_img[
+                    bbox[1] : bbox[3], bbox[0] : bbox[2]
+                ]
 
-                font_color = self.find_dominant_text_color(cropped_img, cropped_preprocessed)
+                font_color = self.find_dominant_text_color(
+                    cropped_img, cropped_preprocessed
+                )
 
             traditional_text = self.cc.convert(text)
 
@@ -110,12 +117,12 @@ class ImageTranslator:
 
     @staticmethod
     def get_font_size_fit_box(
-    width: int, height: int, font_path: str, text: str, font_variation="Bold"
+        width: int, height: int, font_path: str, text: str, font_variation="Bold"
     ) -> int:
         "Find the target font size to fit the text in the given box"
         font_size = min(width, height)
 
-        while font_size > 4: # Too small font size is meaningless
+        while font_size > 4:  # Too small font size is meaningless
             font = ImageFont.truetype(font_path, font_size)
             if font_variation is not None:
                 font.set_variation_by_name(font_variation)
@@ -151,10 +158,12 @@ class ImageTranslator:
         gray = cv2.cvtColor(preprocessed_img, cv2.COLOR_RGB2GRAY)
 
         # Adaptive histogram equalization
-        clahe = cv2.createCLAHE(clipLimit=2, tileGridSize=(8,8))
+        clahe = cv2.createCLAHE(clipLimit=2, tileGridSize=(8, 8))
         gray = clahe.apply(gray)
 
-        _, text_mask = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU + cv2.THRESH_BINARY_INV)
+        _, text_mask = cv2.threshold(
+            gray, 0, 255, cv2.THRESH_OTSU + cv2.THRESH_BINARY_INV
+        )
 
         # Inverse the color of text if the white pixel more than the black
         # A better way is to use shape recognition to find the shape color
@@ -179,5 +188,30 @@ class ImageTranslator:
     def get_high_contrast_color(color):
         "Get the high contrast color for better readability"
         # Calculate luminance
-        luminance = 0.299*color[0] + 0.587*color[1] + 0.114*color[2]
+        luminance = 0.299 * color[0] + 0.587 * color[1] + 0.114 * color[2]
         return (0, 0, 0) if luminance > 128 else (255, 255, 255)
+
+
+if __name__ == "__main__":
+    # Local test
+
+    INPUT_FOLDER = "data/input"
+    OUTPUT_FOLDER = "data/output"
+
+    translator = ImageTranslator()
+
+    # Read input images from folder using glob
+    input_images = glob.glob(INPUT_FOLDER + "/*.jpg")
+    for image_path in input_images:
+        try:
+            print(f"Converting {image_path}...")
+
+            image = cv2.imread(image_path)
+            # Convert to RGB
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+            output_image_path = image_path.replace(INPUT_FOLDER, OUTPUT_FOLDER)
+            output_img = translator.translate_image(image)
+            output_img.save(output_image_path)
+        except Exception as e:
+            print(f"Error when converting {image_path}: {str(e)}")

@@ -10,8 +10,8 @@ from share_button import create_share_buttons
 
 translator = ImageTranslator()
 
-def main():
 
+def main():
 
     set_page_config()
 
@@ -62,7 +62,9 @@ def main():
                 # Add caching for image processing
                 @st.cache_data(show_spinner=False)
                 def process_image(img_array, font_type):
-                    return translator.translate_image(img_array, font_color_type=font_type)
+                    return translator.translate_image(
+                        img_array, font_color_type=font_type
+                    )
 
                 with st.spinner("轉換中，請稍候..."):
                     processed_image = process_image(img_array, font_type)
@@ -91,6 +93,7 @@ def main():
     # Footer
     st.markdown("---")
     create_share_buttons()
+
 
 if __name__ == "__main__":
     main()
