@@ -7,6 +7,7 @@ import easyocr
 import cv2
 from opencc import OpenCC
 from PIL import Image, ImageDraw, ImageFont
+import streamlit as st
 
 
 class FontColorType(Enum):
@@ -58,6 +59,7 @@ class ImageTranslator:
         results = self.reader.readtext(preprocessed_img)
 
         for bbox, text, prob in results:
+            st.write(text, prob)
             print(text, prob)
 
             if prob < self.prob_threshold:
