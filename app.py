@@ -7,15 +7,11 @@ from page_config import set_page_config
 from uploader_config import customized_uploader
 from image_translator import ImageTranslator, FontColorType
 from share_button import create_share_buttons
-from debug import debug_environment
-
 
 translator = ImageTranslator()
 
 
 def main():
-
-    debug_environment()
 
     set_page_config()
 
