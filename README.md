@@ -15,6 +15,7 @@
 
 - Deployment Notes:
   - Tried deploying on AWS EC2 t2.micro, but it ran out of memory and couldn’t run the app.
+    - Note: need to specific `torch==2.3.1+cpu` and `torchvision==0.18.1+cpu`
   - So it's currently deployed on Streamlit Cloud
 - Future Improvements:
   - Avoid re-recognizing the same input when drawing text in different colors
