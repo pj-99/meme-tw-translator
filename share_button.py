@@ -41,7 +41,7 @@ def create_share_buttons():
 
     <script>
     function copyToClipboard() {
-        const url = window.parent.location.href;
+        const url = window.parent.location.origin + window.parent.location.pathname;
         const textArea = document.createElement('textarea');
         textArea.value = url;
         document.body.appendChild(textArea);
@@ -55,15 +55,17 @@ def create_share_buttons():
         document.body.removeChild(textArea);
     }
     
+
     function shareToThreads() {
-        const url = window.parent.location.href;
+        const url = window.parent.location.origin + window.parent.location.pathname;
         window.open('https://www.threads.net/intent/post?text=' + encodeURIComponent(url));
     }
-    
+
     function shareToLine() {
-        const url = window.parent.location.href;
+        const url = window.parent.location.origin + window.parent.location.pathname;
         window.open('https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(url));
     }
+
     </script>
 
     <div class='share-buttons-container'>
