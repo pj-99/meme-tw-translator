@@ -58,6 +58,7 @@ class ImageTranslator:
         results = self.reader.readtext(preprocessed_img)
 
         for bbox, text, prob in results:
+            print(text, prob)
 
             if prob < self.prob_threshold:
                 continue
