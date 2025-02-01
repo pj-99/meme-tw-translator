@@ -15,8 +15,6 @@ translator = ImageTranslator()
 
 def main():
 
-    debug_environment()
-
     set_page_config()
 
     # Header section
@@ -71,6 +69,7 @@ def main():
                     )
 
                 with st.spinner("轉換中，請稍候..."):
+                    debug_environment()
                     processed_image = process_image(img_array, font_type)
 
                 st.image(processed_image, use_container_width=True)
