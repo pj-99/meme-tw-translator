@@ -18,7 +18,7 @@ def main():
     set_page_config()
 
     # Header section
-    st.title("🔄圖片簡轉繁-test")
+    st.title("🔄圖片簡轉繁-testv2")
     st.markdown("將圖片裡的簡體字自動轉換成繁體字，上傳圖片即可轉換")
     st.markdown(str(debug_environment()))
 
