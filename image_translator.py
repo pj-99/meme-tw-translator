@@ -27,7 +27,7 @@ class ImageTranslator:
         model_storage_directory="./models",
         )
 
-    prob_threshold = 0.9
+    prob_threshold = 0.88
     "OCR probability threshold"
 
     contrast_factor = 0.5
