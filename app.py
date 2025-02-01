@@ -16,8 +16,11 @@ def main():
     set_page_config()
 
     # Header section
-    st.title("🔄圖片簡轉繁")
-    st.markdown("將圖片裡的簡體字自動轉換成繁體字，上傳圖片即可轉換")
+    st.title("🔄梗圖圖片簡轉繁")
+    st.markdown("""
+                將圖片裡的簡體字自動轉換成繁體字，上傳圖片即可轉換
+                """)
+    st.caption("💡 提示：此工具專為梗圖設計，若字體過小可能無法正確識別文字")
 
     # Setup customized uploader
     customized_uploader()
@@ -92,7 +95,23 @@ def main():
 
     # Footer
     st.markdown("---")
-    create_share_buttons()
+
+
+    # Center item
+    with st.columns(3)[1]:
+        with st.popover("分享此工具", icon="🔗", use_container_width=True):
+            create_share_buttons()
+
+    st.markdown(
+        """
+            <div style="text-align: center;">
+                <p>💚 Built with open-source packages:
+                <a href="https://github.com/JaidedAI/EasyOCR" target="_blank">EasyOCR</a>,
+                <a href="https://github.com/BYVoid/OpenCC" target="_blank">OpenCC</a>,
+                <a href="https://github.com/streamlit/streamlit" target="_blank">streamlit</a></p>
+            </div>
+        """
+    , unsafe_allow_html=True)
 
 
 if __name__ == "__main__":

@@ -3,15 +3,6 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 def create_share_buttons():
-
-    st.markdown(
-        """
-        <div style='text-align: center;'>
-        <p>分享此工具</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
     share_buttons = """
     <style>
         .share-buttons-container {
@@ -88,7 +79,7 @@ def create_share_buttons():
         </button>
     </div>
     """
-    components.html(share_buttons, height=100)
+    components.html(share_buttons, height=50)
 
 # 在你的主程式中使用
 if __name__ == "__main__":
