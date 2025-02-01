@@ -20,6 +20,7 @@ def main():
     # Header section
     st.title("🔄圖片簡轉繁-test")
     st.markdown("將圖片裡的簡體字自動轉換成繁體字，上傳圖片即可轉換")
+    st.markdown(str(debug_environment()))
 
     # Setup customized uploader
     customized_uploader()
@@ -69,7 +70,6 @@ def main():
                     )
 
                 with st.spinner("轉換中，請稍候..."):
-                    debug_environment()
                     processed_image = process_image(img_array, font_type)
 
                 st.image(processed_image, use_container_width=True)
