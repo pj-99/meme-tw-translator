@@ -1,11 +1,12 @@
 
 # 圖片簡轉繁 Meme TW translator
 
-- 將圖片裡的簡體字自動轉換成繁體中文
-- A simple tool for translating image's Simplified Chinese to Traditional Chinese
+將圖片裡的簡體字自動轉換成繁體中文
+
+A simple tool for translating image's Simplified Chinese to Traditional Chinese
 
 
-🔗 **Live Demo:** [https://meme-tw-translator.streamlit.app/](https://meme-tw-translator.streamlit.app/)
+[🔗 Live Demo](https://meme-tw-translator.streamlit.app/)
 
 
 ![](./demo.png)
